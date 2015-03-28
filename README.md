@@ -1,0 +1,2 @@
+# proppy
+A proposal generator
