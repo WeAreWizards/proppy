@@ -1,0 +1,5 @@
+__pycache__
+# dev pdf output
+out.pdf
+# Test file to do design quickly
+proppy/test.html

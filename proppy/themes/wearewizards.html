@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Webpage</title>
+    <style type="text/css">
+        html {
+            font-family: 'Verdana',serif;
+            font-size: 100%;
+            line-height: 1.5;
+            color: #353535;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Verdana',sans-serif;
+            line-height: 1.4;
+            color: black;
+        }
+        h1 {
+            font-size: 34px;
+        }
+        h2 {
+            font-size: 28px;
+        }
+        h3 {
+            font-size: 22px;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border: 1px solid black;
+        }
+        th, td {
+          padding: 16px;
+          border: 1px solid black;
+        }
+        td {
+          padding: 8px;
+        }
+        th {
+          background: #7EDBB5;
+        }
+        .long-cell {
+          width: 70%;
+        }
+        .text-center {
+          text-align: center;
+        }
+        .total-row {
+          background: #ECECEC;
+          font-weight: bold;
+        }
+        p, ul, ol {
+          margin: 22px 0 0;
+        }
+    </style>
+</head>
+<body>
+  <h1>{{ proposal.project.name }}</h1>
+  <h2>About this document</h2>
+  <p>{{ proposal.project.description }}</p>
+
+  <h2>Deliverables</h2>
+  {% for deliverable in proposal.deliverables %}
+    <h3>{{ loop.index }} - {{ deliverable.name }}</h3>
+    <p>{{ deliverable.description }}</p>
+  {% endfor %}
+
+  <h2>Estimations</h2>
+  <table>
+    <thead>
+      <tr>
+        <th class="long-cell">Deliverable</th>
+        <th>Estimate (days)</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for deliverable in proposal.deliverables %}
+        <tr>
+          <td>{{ deliverable.name }}</td>
+          <td class="text-center">{{ deliverable.estimate }}</td>
+        </tr>
+      {% endfor %}
+      <tr class="total-row">
+        <td>Total</td>
+        <td class="text-center">42</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Timeline</h2>
+  <p>
+  The development phase will start on the {{ proposal.project.start }} and will finish on the {{ proposal.project.end }}.
+  <br>
+  The UAT  ill start on the {{ proposal.project.uat_start }} and will finish on the {{ proposal.project.uat_end }}.
+  <br>
+  After the {{ proposal.project.uat_end }}, bugs will be covered by the next phase of development or a support contract.
+  {% if proposal.project.extra %}
+  {% endif %}
+  </p>
+
+  <h2>Costs</h2>
+  <table>
+    <thead>
+      <tr>
+        <th class="long-cell">Deliverable</th>
+        <th>Price (ex. VAT)</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for deliverable in proposal.deliverables %}
+        <tr>
+          <td>{{ deliverable.name }}</td>
+          <td class="text-center">{{ deliverable.cost }}</td>
+        </tr>
+      {% endfor %}
+      <tr class="total-row">
+        <td>Total</td>
+        <td class="text-center">42</td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+</html>
