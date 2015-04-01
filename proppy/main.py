@@ -21,7 +21,7 @@ def main(filename):
             raise InvalidConfiguration("Missing customer in TOML file")
 
         if not config.get('project'):
-            raise InvalidConfiguration("Missing customer in TOML file")
+            raise InvalidConfiguration("Missing project in TOML file")
 
         proposal = Proposal(config)
 
