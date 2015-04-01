@@ -75,7 +75,7 @@ def are_valid_deliverables(deliverables):
     No deliverable should be duplicated
     """
     deliverable_names = []
-    required = ['name', 'description', 'estimate', 'rate']
+    required = ['name', 'description', 'estimate', 'rate', 'free']
     for deliverable in deliverables:
         if (
             any(field not in deliverable for field in required) or

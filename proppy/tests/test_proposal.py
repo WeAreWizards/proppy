@@ -12,6 +12,7 @@ def _get_config():
             'name': 'Project X',
             'description': 'This is what we are supposed',
             'currency': '£',
+            'worker': 1,
             'start': '2015/03/18',
             'end': '2015/03/26',
             'uat_start': '2015/03/27',
@@ -35,12 +36,14 @@ def _get_config():
                     'name': 'Fix Facebook and Twitter integration',
                     'estimate': 1,
                     'rate': 'dev',
+                    'free': True,
                     'description': 'Ensure those are working properly'
                 },
                 {
                     'name': 'Add a badge list page',
                     'estimate': 0.5,
                     'rate': 'design',
+                    'free': False,
                     'description': 'Add a badge list page in the profile'
                 }
             ],
@@ -83,3 +86,39 @@ def test_basic_several_several_errors_in_a_field():
     proposal.basic_validation()
     assert len(proposal._errors) == 1
     assert "Field project.currency is missing" == proposal._errors[0]
+
+
+def test_logic_validation_not_doing_everything_free():
+    wrong_config = _get_config()
+    wrong_config['project']['deliverables'][1]['free'] = True
+    proposal = Proposal(config=wrong_config)
+    proposal.logic_validation()
+    assert len(proposal._errors) == 1
+    assert "Can't have all deliverables set to free" == proposal._errors[0]
+
+
+def test_logic_validation_unknown_rate_in_deliverable():
+    wrong_config = _get_config()
+    wrong_config['project']['deliverables'][1]['rate'] = 'magic'
+    proposal = Proposal(config=wrong_config)
+    proposal.logic_validation()
+    assert len(proposal._errors) == 1
+    assert "An unknown rate was used in a deliverable" == proposal._errors[0]
+
+
+def test_logic_validation_timeline_too_short():
+    wrong_config = _get_config()
+    wrong_config['project']['start'] = '2015/03/25'
+    proposal = Proposal(config=wrong_config)
+    proposal.logic_validation()
+    assert len(proposal._errors) == 1
+    assert "Project take more time than the timeline allows" == proposal._errors[0]  # NOQA
+
+
+def test_logic_validation_timeline_too_long():
+    wrong_config = _get_config()
+    wrong_config['project']['start'] = '2015/02/25'
+    proposal = Proposal(config=wrong_config)
+    proposal.logic_validation()
+    assert len(proposal._errors) == 1
+    assert "Project take way less time than the timeline shows" == proposal._errors[0]  # NOQA

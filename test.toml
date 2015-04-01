@@ -10,6 +10,7 @@ email = "boss@acme.com"
 name = "Project X"
 description = "This is what we are supposed to do for that project blabla"
 currency ="£"
+worker = 1
 start = "2015/03/18"
 end = "2015/03/26"
 uat_start = "2015/03/27"
@@ -32,12 +33,14 @@ uat_end = "2015/03/31"
   description = "Ensure those are working properly for login and connect."
   estimate = 1
   rate = "dev"
+  free = true
 
   [[project.deliverables]]
   name = "Add a badge list page"
   description = "Add a badge list page in the profile, see screenshot."
   estimate = 0.5
   rate = "design"
+  free = false
 
   [[project.costs]]
   discount_percentage = 5

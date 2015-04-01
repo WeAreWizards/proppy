@@ -59,6 +59,7 @@ def test_are_valid_deliverables():
         'name': 'Fix Facebook and Twitter integration',
         'estimate': 1,
         'rate': 'dev',
+        'free': False,
         'description': 'Ensure those are working properly for login '
     }
     assert are_valid_deliverables([missing_field_deliverable]) is False

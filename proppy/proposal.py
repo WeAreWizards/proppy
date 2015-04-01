@@ -5,6 +5,7 @@ from proppy.validators import (
     are_valid_deliverables,
     are_valid_rates
 )
+from proppy.utils import get_work_days_interval
 
 
 class Proposal(object):
@@ -15,6 +16,7 @@ class Proposal(object):
 
         'project.name': [is_present],
         'project.description': [is_present],
+        'project.worker': [is_present],
         'project.currency': [is_present, is_currency],
         'project.start': [is_present, is_date()],
         'project.end': [is_present, is_date()],
@@ -58,6 +60,48 @@ class Proposal(object):
                     self._errors.append(rule.message % field)
                     break
 
+    def logic_validation(self):
+        """
+        Ensure there's no 'stupid' data, like a UAT period
+        lasting 1 month while the dev is 5 days or a 100% reduction
+        """
+        # can't have all the deliverable set to free
+        if all(d['free'] for d in self.project['deliverables']):
+            self._errors.append("Can't have all deliverables set to free")
+            return
+
+        deliverables = self.project['deliverables']
+        # not using a rate we haven't specified in a deliverable
+        rate_names = [rate['name'] for rate in self.project['rates']]
+        if any(d['rate'] not in rate_names for d in deliverables):
+            self._errors.append(
+                "An unknown rate was used in a deliverable"
+            )
+            return
+
+        # start and end dates are accurates given the estimates
+        length_project = get_work_days_interval(
+            self.project['start'], self.project['end']
+        )
+        estimated_length = sum([d['estimate'] for d in deliverables])
+        estimated_length /= self.project['worker']
+        # not too short
+        if estimated_length > length_project:
+            self._errors.append(
+                "Project take more time than the timeline allows"
+            )
+            return
+        # but not too long either
+        if length_project > estimated_length * 2:
+            self._errors.append(
+                "Project take way less time than the timeline shows"
+            )
+            return
+
+        # UAT validation: needs to be after the end date of project
+        # and should be long enough (not super short or super long)
+        # UAT is not mandatory though
+
     def is_valid(self):
         self.basic_validation()
         # If we get errors during basic validation, no need
@@ -66,6 +110,7 @@ class Proposal(object):
             return False
 
         # Call business logic before the return
+        self.logic_validation()
         return len(self._errors) == 0
 
     def print_errors(self):
