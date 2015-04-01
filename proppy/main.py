@@ -33,6 +33,7 @@ def main(filename):
             # show errors and do nothing
             proposal.print_errors()
 
+
 def run_main():
     if len(sys.argv) != 2:
         raise InvalidCommand("Invalid number of arguments")
@@ -41,4 +42,4 @@ def run_main():
 
 
 if __name__ == '__main__':
-  run_main()
+    run_main()

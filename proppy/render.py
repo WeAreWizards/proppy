@@ -1,8 +1,7 @@
 import os
 
 from jinja2 import Environment, FileSystemLoader
-from jinja2.exceptions import TemplateNotFound
-from weasyprint import HTML, CSS
+from weasyprint import HTML
 
 
 def to_html(theme, proposal):

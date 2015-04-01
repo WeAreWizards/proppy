@@ -1,7 +1,6 @@
 from proppy.validators import (
     is_currency,
     is_date,
-    is_percentage,
     is_present,
     are_valid_deliverables,
     are_valid_rates

@@ -1,5 +1,6 @@
 from proppy.proposal import Proposal
 
+
 def _get_config():
     return {
         'customer': {
@@ -9,7 +10,7 @@ def _get_config():
         },
         'project': {
             'name': 'Project X',
-            'description': 'This is what we are supposed to do for that project blabla',
+            'description': 'This is what we are supposed',
             'currency': '£',
             'start': '2015/03/18',
             'end': '2015/03/26',
@@ -34,13 +35,13 @@ def _get_config():
                     'name': 'Fix Facebook and Twitter integration',
                     'estimate': 1,
                     'rate': 'dev',
-                    'description': 'Ensure those are working properly for login and connect.'
+                    'description': 'Ensure those are working properly'
                 },
                 {
                     'name': 'Add a badge list page',
                     'estimate': 0.5,
                     'rate': 'design',
-                    'description': 'Add a badge list page in the profile, see screenshot.'
+                    'description': 'Add a badge list page in the profile'
                 }
             ],
             'costs': [
@@ -52,14 +53,15 @@ def _get_config():
         }
     }
 
+
 def test_fetch_value():
     config = _get_config()
     proposal = Proposal(config=config)
-
-    assert proposal._fetch_value('customer') == config['customer']
-    assert proposal._fetch_value('customer.company') == config['customer']['company']
+    customer = config['customer']
+    assert proposal._fetch_value('customer') == customer
+    assert proposal._fetch_value('customer.company') == customer['company']
     assert proposal._fetch_value('project.rates') == config['project']['rates']
-    assert proposal._fetch_value('customer.nonexistent') == None
+    assert proposal._fetch_value('customer.nonexistent') is None
 
 
 def test_basic_validation_one_error():
@@ -81,4 +83,3 @@ def test_basic_several_several_errors_in_a_field():
     proposal.basic_validation()
     assert len(proposal._errors) == 1
     assert "Field project.currency is missing" == proposal._errors[0]
-
