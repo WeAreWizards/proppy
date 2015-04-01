@@ -1,0 +1,4 @@
+theme = "hey"
+
+[project]
+name = "Acme"

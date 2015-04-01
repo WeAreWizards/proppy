@@ -1,0 +1,4 @@
+theme = "hey"
+
+[customer]
+name = "Acme"

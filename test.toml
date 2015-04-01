@@ -1,5 +1,11 @@
 theme = "wearewizards"
 
+[customer]
+company = "ACME"
+person = "Bob Marley"
+email = "boss@acme.com"
+
+
 [project]
 name = "Project X"
 description = "This is what we are supposed to do for that project blabla"
@@ -9,22 +15,30 @@ end = "2015/03/26"
 uat_start = "2015/03/27"
 uat_end = "2015/03/31"
 
-[customer]
-company = "ACME"
-person = "Bob Marley"
-email = "boss@acme.com"
+  [[project.rates]]
+  name = "dev"
+  amount = 800
 
+  [[project.rates]]
+  name = "pm"
+  amount = 700
 
-[[deliverables]]
-name = "Fix Facebook and Twitter integration"
-description = "Ensure those are working properly for login and connect."
-estimate = 1
+  [[project.rates]]
+  name = "design"
+  amount = 750
 
-[[deliverables]]
-name = "Add a badge list page"
-description = "Add a badge list page in the profile, see screenshot."
-estimate = 0.5
+  [[project.deliverables]]
+  name = "Fix Facebook and Twitter integration"
+  description = "Ensure those are working properly for login and connect."
+  estimate = 1
+  rate = "dev"
 
-[[costs]]
-discount_percentage = 5
-discount_fixed = 500
+  [[project.deliverables]]
+  name = "Add a badge list page"
+  description = "Add a badge list page in the profile, see screenshot."
+  estimate = 0.5
+  rate = "design"
+
+  [[project.costs]]
+  discount_percentage = 5
+  discount_fixed = 500
