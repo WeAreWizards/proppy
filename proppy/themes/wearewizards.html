@@ -56,12 +56,12 @@
     </style>
 </head>
 <body>
-  <h1>{{ proposal.project.name }}</h1>
+  <h1>{{ project.name }}</h1>
   <h2>About this document</h2>
-  <p>{{ proposal.project.description }}</p>
+  <p>{{ project.description }}</p>
 
   <h2>Deliverables</h2>
-  {% for deliverable in proposal.deliverables %}
+  {% for deliverable in project.deliverables %}
     <h3>{{ loop.index }} - {{ deliverable.name }}</h3>
     <p>{{ deliverable.description }}</p>
   {% endfor %}
@@ -76,7 +76,7 @@
     </thead>
 
     <tbody>
-      {% for deliverable in proposal.deliverables %}
+      {% for deliverable in project.deliverables %}
         <tr>
           <td>{{ deliverable.name }}</td>
           <td class="text-center">{{ deliverable.estimate }}</td>
@@ -91,12 +91,12 @@
 
   <h2>Timeline</h2>
   <p>
-  The development phase will start on the {{ proposal.project.start }} and will finish on the {{ proposal.project.end }}.
+  The development phase will start on the {{ project.start }} and will finish on the {{ project.end }}.
   <br>
-  The UAT will start on the {{ proposal.project.uat_start }} and will finish on the {{ proposal.project.uat_end }}.
+  The UAT will start on the {{ project.uat_start }} and will finish on the {{ project.uat_end }}.
   <br>
-  After the {{ proposal.project.uat_end }}, bugs will be covered by the next phase of development or a support contract.
-  {% if proposal.project.extra %}
+  After the {{ project.uat_end }}, bugs will be covered by the next phase of development or a support contract.
+  {% if project.extra %}
   {% endif %}
   </p>
 
@@ -110,7 +110,7 @@
     </thead>
 
     <tbody>
-      {% for deliverable in proposal.deliverables %}
+      {% for deliverable in project.deliverables %}
         <tr>
           <td>{{ deliverable.name }}</td>
           <td class="text-center">{{ deliverable.cost }}</td>

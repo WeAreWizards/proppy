@@ -1,7 +1,7 @@
 
-class InvalidCommandException(Exception):
+class InvalidCommand(Exception):
   pass
 
 
-class InvalidConfigurationException(Exception):
+class InvalidConfiguration(Exception):
   pass
