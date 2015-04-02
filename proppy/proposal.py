@@ -1,6 +1,7 @@
 from proppy.validators import (
     is_currency,
     is_date,
+    is_percentage,
     is_present,
     are_valid_deliverables,
     are_valid_rates
@@ -21,13 +22,15 @@ class Proposal(object):
         'project.description': [is_present],
         'project.worker': [is_present],
         'project.currency': [is_present, is_currency],
+        'project.discount': [is_percentage],
+
         'project.start': [is_present, is_date()],
         'project.end': [is_present, is_date()],
         'project.uat_start': [is_date(optional=True)],
         'project.uat_end': [is_date(optional=True)],
 
         'project.rates': [is_present, are_valid_rates],
-        'project.deliverables': [is_present, are_valid_deliverables]
+        'project.deliverables': [is_present, are_valid_deliverables],
     }
 
     def __init__(self, config):
@@ -72,6 +75,8 @@ class Proposal(object):
             - start_date
             - end_date
             - dev_length
+            - sum_paid_deliverables
+            - sum_free_deliverables
         """
         # can't have all the deliverable set to free
         if all(d['free'] for d in self.project['deliverables']):
@@ -103,7 +108,7 @@ class Proposal(object):
             )
             return
         # but not too long either
-        if length_project > dev_length * 2:
+        if length_project > dev_length * 3:
             self._errors.append(
                 "Project take way less time than the timeline shows"
             )
@@ -128,6 +133,38 @@ class Proposal(object):
                     "UAT can't take longer than the project itself"
                 )
                 return
+
+        # And finally onto the costs validation
+        day_rates = {r['name']: r['amount'] for r in self.project['rates']}
+
+        # the sum we will invoice based on the deliverables itself
+        sum_deliverables = 0
+        # the sum we give away as a discount, ie free deliverables
+        sum_free_deliverables = 0
+        for d in deliverables:
+            cost = d['estimate'] * day_rates[d['rate']]
+            sum_deliverables += cost
+            if d['free']:
+                sum_free_deliverables += cost
+
+        self.project['sum_deliverables'] = sum_deliverables
+        self.project['sum_free_deliverables'] = sum_free_deliverables
+
+        # now we need to check that the discount validation is not too high
+        if self.project['discount'] > 20:
+            self._errors.append("Discount is set too high")
+            return
+
+        self.project['discount_amount'] = (
+            (sum_deliverables - sum_free_deliverables) / 100
+            * self.project['discount']
+        )
+
+        self.project['invoice_amount'] = (
+            sum_deliverables
+            - sum_free_deliverables
+            - self.project['discount_amount']
+        )
 
     def is_valid(self):
         self.basic_validation()

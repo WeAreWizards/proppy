@@ -12,6 +12,7 @@ def _get_config():
             'name': 'Project X',
             'description': 'This is what we are supposed',
             'currency': '£',
+            'discount': 5,
             'worker': 1,
             'start': '2015/03/18',
             'end': '2015/03/23',
@@ -36,21 +37,15 @@ def _get_config():
                     'name': 'Fix Facebook and Twitter integration',
                     'estimate': 2,
                     'rate': 'dev',
-                    'free': True,
+                    'free': False,
                     'description': 'Ensure those are working properly'
                 },
                 {
                     'name': 'Add a badge list page',
                     'estimate': 0.5,
                     'rate': 'design',
-                    'free': False,
+                    'free': True,
                     'description': 'Add a badge list page in the profile'
-                }
-            ],
-            'costs': [
-                {
-                    'discount_fixed': 500,
-                    'discount_percentage': 5
                 }
             ]
         }
@@ -90,7 +85,7 @@ def test_basic_several_several_errors_in_a_field():
 
 def test_logic_validation_not_doing_everything_free():
     wrong_config = _get_config()
-    wrong_config['project']['deliverables'][1]['free'] = True
+    wrong_config['project']['deliverables'][0]['free'] = True
     proposal = Proposal(config=wrong_config)
     proposal.logic_validation()
     assert len(proposal._errors) == 1
@@ -140,3 +135,11 @@ def test_logic_validation_uat_too_long():
     proposal.logic_validation()
     assert len(proposal._errors) == 1
     assert "UAT can't take longer than the project itself" == proposal._errors[0]  # NOQA
+
+def test_logic_validation_discount_too_high():
+    wrong_config = _get_config()
+    wrong_config['project']['discount'] = 50
+    proposal = Proposal(config=wrong_config)
+    proposal.logic_validation()
+    assert len(proposal._errors) == 1
+    assert "Discount is set too high" == proposal._errors[0]  # NOQA

@@ -11,13 +11,9 @@ is_present.message = "Field %s is missing"
 
 
 def is_percentage(value):
-    """
-    0 is a pretty useless percentage in a proposal
-    so counting it as falsy
-    """
     if value is None or type(value) is str:
         return False
-    return 0 < value <= 100
+    return 0 <= value <= 100
 is_percentage.message = "Field %s is not a valid percentage"
 
 

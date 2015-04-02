@@ -9,11 +9,12 @@ email = "boss@acme.com"
 [project]
 name = "Project X"
 description = "This is what we are supposed to do for that project blabla"
-currency ="£"
+currency = "£"
+discount = 5
 worker = 1
-start = "2015/03/18"
+start = "2015/03/20"
 end = "2015/03/26"
-uat_start = "2015/03/27"
+uat_start = "2015/03/29"
 uat_end = "2015/03/31"
 
   [[project.rates]]
@@ -31,17 +32,13 @@ uat_end = "2015/03/31"
   [[project.deliverables]]
   name = "Fix Facebook and Twitter integration"
   description = "Ensure those are working properly for login and connect."
-  estimate = 1
+  estimate = 2
   rate = "dev"
-  free = true
+  free = false
 
   [[project.deliverables]]
   name = "Add a badge list page"
   description = "Add a badge list page in the profile, see screenshot."
   estimate = 0.5
   rate = "design"
-  free = false
-
-  [[project.costs]]
-  discount_percentage = 5
-  discount_fixed = 500
+  free = true

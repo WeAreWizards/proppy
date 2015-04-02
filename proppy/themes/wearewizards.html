@@ -84,20 +84,18 @@
       {% endfor %}
       <tr class="total-row">
         <td>Total</td>
-        <td class="text-center">42</td>
+        <td class="text-center">{{ project.dev_length }}</td>
       </tr>
     </tbody>
   </table>
 
   <h2>Timeline</h2>
   <p>
-  The development phase will start on the {{ project.start }} and will finish on the {{ project.end }}.
-  <br>
-  The UAT will start on the {{ project.uat_start }} and will finish on the {{ project.uat_end }}.
-  <br>
-  After the {{ project.uat_end }}, bugs will be covered by the next phase of development or a support contract.
-  {% if project.extra %}
-  {% endif %}
+    The development phase will start on the {{ project.start }} and will finish on the {{ project.end }}.
+    <br>
+    The UAT will start on the {{ project.uat_start }} and will finish on the {{ project.uat_end }}.
+    <br>
+    After the {{ project.uat_end }}, bugs will be covered by the next phase of development or a support contract.
   </p>
 
   <h2>Costs</h2>
@@ -110,15 +108,25 @@
     </thead>
 
     <tbody>
-      {% for deliverable in project.deliverables %}
+      <tr>
+        <td>Deliverable phase</td>
+        <td class="text-center">{{ project.sum_deliverables}}</td>
+      </tr>
+      {% if project.sum_free_deliverables > 0 %}
         <tr>
-          <td>{{ deliverable.name }}</td>
-          <td class="text-center">{{ deliverable.cost }}</td>
+          <td>Free work</td>
+          <td class="text-center">-{{ project.sum_free_deliverables }}</td>
         </tr>
-      {% endfor %}
+      {% endif %}
+      {% if project.discount_amount > 0 %}
+        <tr>
+          <td>{{ project.discount }}% discount</td>
+          <td class="text-center">-{{ project.discount_amount }}</td>
+        </tr>
+      {% endif %}
       <tr class="total-row">
         <td>Total</td>
-        <td class="text-center">42</td>
+        <td class="text-center">{{ project.invoice_amount }}</td>
       </tr>
     </tbody>
   </table>

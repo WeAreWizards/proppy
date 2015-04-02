@@ -29,9 +29,11 @@ def main(filename):
             print("Valid proposal, saving it.")
             to_pdf(theme, proposal)
             print("Proposal rendered and saved.")
+            exit(0)
         else:
             # show errors and do nothing
             proposal.print_errors()
+            exit(1)
 
 
 def run_main():
