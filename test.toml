@@ -18,27 +18,27 @@ uat_start = "2015/03/29"
 uat_end = "2015/03/31"
 
   [[project.rates]]
-  name = "dev"
+  name = "Development"
   amount = 800
 
   [[project.rates]]
-  name = "pm"
+  name = "Project Management"
   amount = 700
 
   [[project.rates]]
-  name = "design"
+  name = "Design"
   amount = 750
 
   [[project.deliverables]]
   name = "Fix Facebook and Twitter integration"
   description = "Ensure those are working properly for login and connect."
   estimate = 2
-  rate = "dev"
+  rate = "Development"
   free = false
 
   [[project.deliverables]]
   name = "Add a badge list page"
   description = "Add a badge list page in the profile, see screenshot."
   estimate = 0.5
-  rate = "design"
+  rate = "Design"
   free = true

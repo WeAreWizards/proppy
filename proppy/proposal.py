@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 from proppy.validators import (
     is_currency,
     is_date,
@@ -141,11 +143,15 @@ class Proposal(object):
         sum_deliverables = 0
         # the sum we give away as a discount, ie free deliverables
         sum_free_deliverables = 0
+        self.project['costs_by_rate'] = defaultdict(int)
+
         for d in deliverables:
             cost = d['estimate'] * day_rates[d['rate']]
             sum_deliverables += cost
             if d['free']:
                 sum_free_deliverables += cost
+
+            self.project['costs_by_rate'][d['rate']] += cost
 
         self.project['sum_deliverables'] = sum_deliverables
         self.project['sum_free_deliverables'] = sum_free_deliverables
