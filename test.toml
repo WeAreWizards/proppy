@@ -8,7 +8,9 @@ email = "boss@acme.com"
 
 [project]
 name = "Project X"
-description = "This is what we are supposed to do for that project blabla"
+description = "Write a proposal tool to generate proposals for we are wizards.
+The tool will allow to generate pretty proposals with automatic
+summation of work items at different rates."
 currency = "£"
 discount = 5
 worker = 1
