@@ -14,7 +14,7 @@ def _get_config():
             'currency': '£',
             'worker': 1,
             'start': '2015/03/18',
-            'end': '2015/03/26',
+            'end': '2015/03/23',
             'uat_start': '2015/03/27',
             'uat_end': '2015/03/31',
             'rates': [
@@ -34,7 +34,7 @@ def _get_config():
             'deliverables': [
                 {
                     'name': 'Fix Facebook and Twitter integration',
-                    'estimate': 1,
+                    'estimate': 2,
                     'rate': 'dev',
                     'free': True,
                     'description': 'Ensure those are working properly'
@@ -122,3 +122,21 @@ def test_logic_validation_timeline_too_long():
     proposal.logic_validation()
     assert len(proposal._errors) == 1
     assert "Project take way less time than the timeline shows" == proposal._errors[0]  # NOQA
+
+
+def test_logic_validation_uat_starting_during_project():
+    wrong_config = _get_config()
+    wrong_config['project']['uat_start'] = '2015/03/19'
+    proposal = Proposal(config=wrong_config)
+    proposal.logic_validation()
+    assert len(proposal._errors) == 1
+    assert "UAT can't start before the end of the project" == proposal._errors[0]  # NOQA
+
+
+def test_logic_validation_uat_too_long():
+    wrong_config = _get_config()
+    wrong_config['project']['uat_end'] = '2015/04/19'
+    proposal = Proposal(config=wrong_config)
+    proposal.logic_validation()
+    assert len(proposal._errors) == 1
+    assert "UAT can't take longer than the project itself" == proposal._errors[0]  # NOQA

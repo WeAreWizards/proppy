@@ -1,13 +1,18 @@
 import datetime
 
 
+def to_date(date):
+    """
+    Returns a datetime given a string of the YYYY/MM/DD format
+    """
+    return datetime.datetime.strptime(date, "%Y/%m/%d")
+
+
 def get_work_days_interval(start, end):
     """
     Find out the number of working days for the interval
     between the 2 given dates
     """
-    start = datetime.datetime.strptime(start, "%Y/%m/%d")
-    end = datetime.datetime.strptime(end, "%Y/%m/%d")
     total_days = (end - start).days
     working_days = 0
     day = start
