@@ -22,6 +22,7 @@ setup(
             'proppy = proppy.main:run_main',
         ],
     },
+    package_data={'proppy': ['themes/*.html']},
     classifiers=[
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
