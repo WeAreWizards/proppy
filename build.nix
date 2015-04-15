@@ -11,7 +11,7 @@ pkgs.python34Packages.buildPythonPackage {
   name = "proppy-0.01";
   srcs = ./.;
   propagatedBuildInputs = [
-    deps.weasyprint
+    pkgs.wkhtmltopdf
     deps.pytoml
     pkgs.python34Packages.jinja2
     pkgs.cairo

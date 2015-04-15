@@ -15,7 +15,7 @@ currency = "£"
 discount = 5
 worker = 1
 start = "2015/03/20"
-end = "2015/03/26"
+end = "2015/03/29"
 uat_start = "2015/03/29"
 uat_end = "2015/03/31"
 
@@ -38,8 +38,38 @@ uat_end = "2015/03/31"
   rate = "Development"
   free = false
 
+
   [[project.deliverables]]
   name = "Add a badge list page"
+  description = "Add a badge list page in the profile, see screenshot."
+  estimate = 0.5
+  rate = "Design"
+  free = true
+
+
+  [[project.deliverables]]
+  name = "Add a badge list page2"
+  description = "Add a badge list page in the profile, see screenshot."
+  estimate = 0.5
+  rate = "Design"
+  free = true
+
+  [[project.deliverables]]
+  name = "Add a badge list page4"
+  description = "Add a badge list page in the profile, see screenshot."
+  estimate = 0.5
+  rate = "Design"
+  free = true
+
+  [[project.deliverables]]
+  name = "Add a badge list page5"
+  description = "Add a badge list page in the profile, see screenshot."
+  estimate = 0.5
+  rate = "Design"
+  free = true
+
+  [[project.deliverables]]
+  name = "Add a badge list page6"
   description = "Add a badge list page in the profile, see screenshot."
   estimate = 0.5
   rate = "Design"

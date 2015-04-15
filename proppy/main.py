@@ -3,7 +3,7 @@ import pytoml as toml
 
 from proppy.exceptions import InvalidCommand, InvalidConfiguration
 from proppy.proposal import Proposal
-from proppy.render import to_pdf
+from proppy.render import to_pdf_wkhtml, to_pdf
 
 
 def main(filename):
@@ -27,7 +27,7 @@ def main(filename):
 
         if proposal.is_valid():
             print("Valid proposal, saving it.")
-            to_pdf(theme, proposal)
+            to_pdf_wkhtml(theme, proposal)
             print("Proposal rendered and saved.")
             exit(0)
         else:
