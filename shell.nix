@@ -14,6 +14,7 @@ pkgs.python34Packages.buildPythonPackage {
     deps.weasyprint
     deps.pytoml
     pkgs.python34Packages.jinja2
+    pkgs.python34Packages.pytest
   ] ++ deps.weasyprint.installRequires;
   shellHook = ''
       export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${pkgs.cairo}/lib:${pkgs.glib}/lib:${pkgs.pango}/lib
