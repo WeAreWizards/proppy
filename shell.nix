@@ -11,10 +11,11 @@ pkgs.python34Packages.buildPythonPackage {
   name = "proppy";
   srcs = ./.;
   propagatedBuildInputs = [
-    deps.weasyprint
+    deps.wkhtmltopdf
     deps.pytoml
     pkgs.python34Packages.jinja2
     pkgs.python34Packages.pytest
+    pkgs.phantomjs
   ] ++ deps.weasyprint.installRequires;
   shellHook = ''
       export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${pkgs.cairo}/lib:${pkgs.glib}/lib:${pkgs.pango}/lib

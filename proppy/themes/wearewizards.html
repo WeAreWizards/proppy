@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>My Webpage</title>
+  <title>My Webpage</title>
     <style type="text/css">
+      @media print {
         html {
-            font-family: 'Verdana',serif;
+            font-family: 'Verdana', 'Open sans', serif;
             font-size: 100%;
             line-height: 1.5;
             color: #353535;
         }
-
         h1, h2, h3, h4 {
-            font-family: 'Verdana',sans-serif;
+            font-family: 'Verdana', 'Open sans', sans-serif;
             line-height: 1.4;
             color: black;
         }
@@ -53,6 +53,7 @@
         p, ul, ol {
           margin: 22px 0 0;
         }
+      }
     </style>
 </head>
 <body>
@@ -91,11 +92,11 @@
 
   <h2>Timeline</h2>
   <p>
-    The development phase will start on the {{ project.start }} and will finish on the {{ project.end }}.
+    The development phase will start on the {{ project.start_date.strftime('%d %B %Y') }} and will finish on the {{ project.end_date.strftime('%d %B %Y') }}.
     <br>
-    The UAT will start on the {{ project.uat_start }} and will finish on the {{ project.uat_end }}.
+    The UAT will start on the {{ project.uat_start_date.strftime('%d %B %Y') }} and will finish on the {{ project.uat_end_date.strftime('%d %B %Y') }}.
     <br>
-    After the {{ project.uat_end }}, bugs will be covered by the next phase of development or a support contract.
+    After the {{ project.uat_end_date.strftime('%d %B %Y') }} bugs will be covered by the next phase of development or a support contract.
   </p>
 
   <h2>Costs</h2>

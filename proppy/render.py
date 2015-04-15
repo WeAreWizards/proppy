@@ -1,4 +1,6 @@
 import os
+import subprocess
+import tempfile
 
 from jinja2 import Environment, FileSystemLoader
 from weasyprint import HTML
@@ -33,3 +35,15 @@ def to_pdf(theme, proposal):
     """
     html = to_html(theme, proposal)
     HTML(string=html).write_pdf('out.pdf')
+
+
+def to_pdf_wkhtml(theme, proposal):
+    """
+    First get the HTML and then render it as a PDF.
+    TODO: change output file
+    """
+    html = to_html(theme, proposal)
+    with tempfile.NamedTemporaryFile(suffix='.html') as f:
+        f.write(html.encode('utf8'))
+        f.flush()
+        subprocess.check_call(['wkhtmltopdf', '--print-media-type', f.name, 'out.pdf'])
