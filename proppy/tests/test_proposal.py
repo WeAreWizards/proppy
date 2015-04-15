@@ -130,11 +130,11 @@ def test_logic_validation_uat_starting_during_project():
 
 def test_logic_validation_uat_too_long():
     wrong_config = _get_config()
-    wrong_config['project']['uat_end'] = '2015/04/19'
+    wrong_config['project']['uat_end'] = '2015/05/19'
     proposal = Proposal(config=wrong_config)
     proposal.logic_validation()
     assert len(proposal._errors) == 1
-    assert "UAT can't take longer than the project itself" == proposal._errors[0]  # NOQA
+    assert "UAT can't take longer than two weeks" == proposal._errors[0]  # NOQA
 
 def test_logic_validation_discount_too_high():
     wrong_config = _get_config()

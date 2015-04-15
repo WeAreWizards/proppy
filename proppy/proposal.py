@@ -130,9 +130,9 @@ class Proposal(object):
             length_uat = get_work_days_interval(
                 self.project['uat_start_date'], self.project['uat_end_date']
             )
-            if length_uat > dev_length:
+            if length_uat > 14:
                 self._errors.append(
-                    "UAT can't take longer than the project itself"
+                    "UAT can't take longer than two weeks"
                 )
                 return
 
