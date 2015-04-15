@@ -3,7 +3,7 @@ import pytoml as toml
 
 from proppy.exceptions import InvalidCommand, InvalidConfiguration
 from proppy.proposal import Proposal
-from proppy.render import to_pdf_wkhtml, to_pdf
+from proppy.render import to_pdf_wkhtml
 
 
 def main(filename):
