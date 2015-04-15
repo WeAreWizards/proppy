@@ -157,7 +157,7 @@ class Proposal(object):
         self.project['sum_free_deliverables'] = sum_free_deliverables
 
         # now we need to check that the discount validation is not too high
-        if self.project['discount'] > 20:
+        if self.project['discount'] > 50:
             self._errors.append("Discount is set too high")
             return
 

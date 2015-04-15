@@ -138,7 +138,7 @@ def test_logic_validation_uat_too_long():
 
 def test_logic_validation_discount_too_high():
     wrong_config = _get_config()
-    wrong_config['project']['discount'] = 50
+    wrong_config['project']['discount'] = 51
     proposal = Proposal(config=wrong_config)
     proposal.logic_validation()
     assert len(proposal._errors) == 1
