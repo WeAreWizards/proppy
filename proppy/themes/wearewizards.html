@@ -79,12 +79,12 @@
       {% for deliverable in project.deliverables %}
         <tr>
           <td>{{ deliverable.name }}</td>
-          <td class="text-center">{{ deliverable.estimate }}</td>
+          <td class="text-center">{{ '%0.1f'|format(deliverable.estimate) }}</td>
         </tr>
       {% endfor %}
       <tr class="total-row">
         <td>Total</td>
-        <td class="text-center">{{ project.dev_length }}</td>
+        <td class="text-center">{{ '%0.1f'|format(project.dev_length) }}</td>
       </tr>
     </tbody>
   </table>
@@ -111,25 +111,25 @@
       {% for type, cost in project.costs_by_rate.items() %}
         <tr>
           <td>{{ type }}</td>
-          <td class="text-center">{{ cost }}</td>
+          <td class="text-center">{{ '%0.2f'|format(cost) }}</td>
         </tr>
       {% endfor %}
 
       {% if project.sum_free_deliverables > 0 %}
         <tr>
           <td>Free work</td>
-          <td class="text-center">-{{ project.sum_free_deliverables }}</td>
+          <td class="text-center">-{{ '%0.2f'|format(project.sum_free_deliverables) }}</td>
         </tr>
       {% endif %}
       {% if project.discount_amount > 0 %}
         <tr>
           <td>{{ project.discount }}% discount</td>
-          <td class="text-center">-{{ project.discount_amount }}</td>
+          <td class="text-center">-{{ '%0.2f'|format(project.discount_amount) }}</td>
         </tr>
       {% endif %}
       <tr class="total-row">
         <td>Total</td>
-        <td class="text-center">{{ project.invoice_amount }}</td>
+        <td class="text-center">{{ '%0.2f'|format(project.invoice_amount) }}</td>
       </tr>
     </tbody>
   </table>
