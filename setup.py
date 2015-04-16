@@ -15,7 +15,6 @@ setup(
     packages=find_packages(),
     install_requires=[
         'pytoml==0.1.2',
-        'WeasyPrint==0.23',
     ],
     entry_points={
         'console_scripts': [
