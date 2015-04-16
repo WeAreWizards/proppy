@@ -12,3 +12,7 @@ $ pip install -r requirements.txt
 
 ## Installing with nix
 $ nix-env  -f build.nix -i python3.4-proppy-0.01
+
+
+## Fonts
+You will need to install fonts locally to be able to use them in templates.
