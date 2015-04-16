@@ -32,4 +32,9 @@ def to_pdf_wkhtml(theme, proposal):
     TODO: change output file
     """
     html = to_html(theme, proposal)
-    pdfkit.from_string(html, 'out.pdf')
+    options = {
+        'print-media-type': '',
+        'page-size': 'A4',
+        'encoding': "UTF-8",
+    }
+    pdfkit.from_string(html, 'out.pdf', options=options)
